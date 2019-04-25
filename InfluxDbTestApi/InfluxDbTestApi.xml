@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InfluxDbTestApi</name>
+    </assembly>
+    <members>
+        <member name="T:InfluxDbTestApi.Controllers.InfluxController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:InfluxDbTestApi.Controllers.InfluxController.#ctor(InfluxDb.Lib.IService.IInfluxDBTestService)">
+            <summary>
+            
+            </summary>
+            <param name="influxDBTest"></param>
+        </member>
+        <member name="M:InfluxDbTestApi.Controllers.InfluxController.GetInflux(System.String,System.String)">
+            <summary>
+            获取表参数
+            </summary>
+            <param name="dbName"></param>
+            <param name="dbTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InfluxDbTestApi.Controllers.InfluxController.AddInflux(InfluxDb.Lib.Models.AddModel)">
+            <summary>
+            添加表信息
+            </summary>
+            <param name="dbName"></param>
+            <param name="dbTable"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InfluxDbTestApi.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:InfluxDbTestApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:InfluxDbTestApi.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:InfluxDbTestApi.Startup.ApplicationContainer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:InfluxDbTestApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InfluxDbTestApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:InfluxDbTestApi.SwaggerHelp.SwaggerDocTag">
+            <summary>
+            Swagger注释帮助类
+            </summary>
+        </member>
+        <member name="M:InfluxDbTestApi.SwaggerHelp.SwaggerDocTag.Apply(Swashbuckle.AspNetCore.Swagger.SwaggerDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            添加附加注释
+            </summary>
+            <param name="swaggerDoc"></param>
+            <param name="context"></param>
+        </member>
+    </members>
+</doc>

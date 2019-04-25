@@ -28,32 +28,14 @@ namespace InfluxDb.Lib.Service
             return rest;
         }
         /// <summary>
-        /// 
+        /// 添加数据
         /// </summary>
-        /// <param name="dbName"></param>
-        /// <param name="dbTable"></param>
+        /// <param name="addModel"></param>
         /// <returns></returns>
-        public async Task<InfluxResultModel> AddInfluxDb(string dbName, string dbTable)
+        public async Task<InfluxResultModel> AddInfluxDb(AddModel addModel)
         {
-            var rest = await operationHelp.AddData(dbName, dbTable);
+            var rest = await operationHelp.AddData(addModel);
             return rest;
         }
-
-        //public string GetInfluxDb(string dbName, string sql)
-        //{
-        //    var rest = operationHelp.Query(dbName, sql);
-        //    return rest;
-        //}
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="dbName"></param>
-        ///// <param name="dbTable"></param>
-        ///// <returns></returns>
-        //public string AddInfluxDb(string dbName, string sql)
-        //{
-        //    var rest = operationHelp.Write(dbName, sql);
-        //    return rest;
-        //}
     }
 }

@@ -50,9 +50,9 @@ namespace InfluxDbTestApi.Controllers
         //[Authorize]
         public async Task<IActionResult> AddInflux([FromBody] AddModel addModel)
         {
-            var dbName = addModel.dbName;
-            var dbTable = addModel.dbTable;
-            var id = await influxDBTest.AddInfluxDb(dbName, dbTable);
+            if (addModel == null)
+                throw new Exception("传入数据是空！");
+            var id = await influxDBTest.AddInfluxDb(addModel);
             return Ok(id);
         }
     }

@@ -20,6 +20,6 @@ namespace InfluxDb.Lib.IService
         /// <summary>
         /// ADD
         /// </summary>
-        Task<InfluxResultModel> AddData(string dbName, string dbTable);
+        Task<InfluxResultModel> AddData(AddModel addModel);
     }
 }

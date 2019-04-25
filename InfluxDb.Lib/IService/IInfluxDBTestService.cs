@@ -12,18 +12,17 @@ namespace InfluxDb.Lib.IService
     public interface IInfluxDBTestService
     {
         /// <summary>
-        /// 
+        /// 获取数据
         /// </summary>
         /// <param name="dbName"></param>
         /// <param name="dbTable"></param>
         /// <returns></returns>
         Task<IList<IList<object>>> GetInfluxDb(string dbName, string dbTable);
         /// <summary>
-        /// 
+        /// 添加数据
         /// </summary>
-        /// <param name="dbName"></param>
-        /// <param name="dbTable"></param>
+        /// <param name="addModel"></param>
         /// <returns></returns>
-        Task<InfluxResultModel> AddInfluxDb(string dbName, string dbTable);
+        Task<InfluxResultModel> AddInfluxDb(AddModel addModel);
     }
 }

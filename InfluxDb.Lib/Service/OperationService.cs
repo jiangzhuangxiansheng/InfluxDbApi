@@ -69,31 +69,31 @@ namespace InfluxDb.Lib.Service
         /// <summary>
         /// 往InfluxDB中写入数据
         /// </summary>
-        public async Task<InfluxResultModel> AddData(string dbName, string dbTable)
+        public async Task<InfluxResultModel> AddData(AddModel addModel)
         {
             try
             {
                 //基于InfluxData.Net.InfluxDb.Models.Point实体准备数据
                 var point_model = new Point()
                 {
-                    Name = dbTable,
+                    Name = addModel.Db_Table,
                     Tags = new Dictionary<string, object>()
-                {
                     {
-                        "Id", 158
-                    }
-                },
+                        { "Gateway_Id", addModel.Gateway_id},
+                        { "Keep_Alive",addModel.Keep_alive.ToString()},
+                        { "Device_Id",addModel.Device_id}
+                    },
                     Fields = new Dictionary<string, object>()
-                {
                     {
-                        "Val", "webInfo"
-                    }
-                },
+                        { "PublishTime", addModel.Ts},
+                        { "device_type",addModel.Device_type},
+                        { "Data",addModel.Data.ToString()}
+                    },
                     Timestamp = DateTime.UtcNow
                 };
 
                 //从指定库中写入数据，支持传入多个对象的集合
-                var response = await clientDb.Client.WriteAsync(point_model, dbName);
+                var response = await clientDb.Client.WriteAsync(point_model, addModel.Db_Name);
                 InfluxResultModel result = new InfluxResultModel()
                 {
                     StatusCode = response.StatusCode.ToString(),
