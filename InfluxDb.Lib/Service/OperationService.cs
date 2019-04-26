@@ -87,7 +87,7 @@ namespace InfluxDb.Lib.Service
                     {
                         { "PublishTime", addModel.Ts},
                         { "device_type",addModel.Device_type},
-                        { "Data",addModel.Data.ToString()}
+                        { "Data",addModel.Data.ToJsonString()}
                     },
                     Timestamp = DateTime.UtcNow
                 };
