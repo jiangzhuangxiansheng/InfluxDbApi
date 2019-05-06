@@ -1,6 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using InfluxData.Net.Common.Enums;
+using InfluxData.Net.InfluxDb;
+using InfluxDb.Lib.IService;
 using InfluxDb.Lib.Models;
+using InfluxDb.Lib.Service;
 using InfluxDbTestApi.SwaggerHelp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +27,8 @@ namespace InfluxDbTestApi
     /// </summary>
     public class Startup
     {
+        //声明InfluxDbClient
+        private static InfluxDbClient ClientDb;
         /// <summary>
         /// 
         /// </summary>
@@ -30,6 +36,7 @@ namespace InfluxDbTestApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ClientDb = new InfluxDbClient(configuration["InfluxDbModelStrings:InfluxUrl"], configuration["InfluxDbModelStrings:InfluxUser"], configuration["InfluxDbModelStrings:InfluxPwd"], InfluxDbVersion.Latest);
         }
 
         /// <summary>
@@ -101,6 +108,7 @@ namespace InfluxDbTestApi
             
             #region InfluxDb
             services.Configure<InfluxDbModel>(Configuration.GetSection("InfluxDbModelStrings"));
+            services.AddSingleton(ClientDb);
             #endregion InfluxDb
 
             #region Autofac

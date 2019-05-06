@@ -18,20 +18,19 @@ namespace InfluxDb.Lib.Service
     /// </summary>
     public class OperationService : IOperationService
     {
-        //声明InfluxDbClient
-        private InfluxDbClient clientDb;
+       
         //Influx配置
         private readonly InfluxDbModel influx;
+        private readonly InfluxDbClient dbClient;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="influxDb"></param>
-        public OperationService(IOptions<InfluxDbModel> influxDb)
+        public OperationService(IOptions<InfluxDbModel> influxDb, InfluxDbClient dbClient)
         {
             influx = influxDb.Value;
-
-            //创建InfluxDbClient实例
-            clientDb = new InfluxDbClient(influx.InfluxUrl, influx.InfluxUser, influx.InfluxPwd, InfluxDbVersion.Latest);
+            this.dbClient = dbClient;
+            //clientDb = new InfluxDbClient(influx.InfluxUrl, influx.InfluxUser, influx.InfluxPwd, InfluxDbVersion.Latest);
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace InfluxDb.Lib.Service
                     $"SELECT * FROM {dbTable} WHERE region='us-west'"
                 };
                 //从指定库中查询数据
-                var response = await clientDb.Client.QueryAsync(queries, dbName);
+                var response = await dbClient.Client.QueryAsync(queries, dbName);
                 //得到Serie集合对象（返回执行多个查询的结果）
                 var series = response.ToList();
                 //取出第一条命令的查询结果，是一个集合
@@ -63,11 +62,6 @@ namespace InfluxDb.Lib.Service
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                if (clientDb != null)
-                    ((IDisposable)clientDb).Dispose();
             }
         }
 
@@ -98,7 +92,8 @@ namespace InfluxDb.Lib.Service
                 };
 
                 //从指定库中写入数据，支持传入多个对象的集合
-                var response = await clientDb.Client.WriteAsync(point_model, addModel.Db_Name);
+                var response = await dbClient.Client.WriteAsync(point_model, addModel.Db_Name);
+
                 InfluxResultModel result = new InfluxResultModel()
                 {
                     StatusCode = response.StatusCode.ToString(),
@@ -110,11 +105,6 @@ namespace InfluxDb.Lib.Service
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                if (clientDb != null)
-                    ((IDisposable)clientDb).Dispose();
             }
         }
     }

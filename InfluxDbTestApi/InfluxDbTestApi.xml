@@ -14,7 +14,6 @@
             
             </summary>
             <param name="influxDBTest"></param>
-            <param name="logger"></param>
         </member>
         <member name="M:InfluxDbTestApi.Controllers.InfluxController.GetInflux(System.String,System.String)">
             <summary>
