@@ -29,6 +29,7 @@ namespace InfluxDb.Lib.Service
         public OperationService(IOptions<InfluxDbModel> influxDb)
         {
             influx = influxDb.Value;
+
             //创建InfluxDbClient实例
             clientDb = new InfluxDbClient(influx.InfluxUrl, influx.InfluxUser, influx.InfluxPwd, InfluxDbVersion.Latest);
         }
@@ -49,7 +50,6 @@ namespace InfluxDb.Lib.Service
                 {
                     $"SELECT * FROM {dbTable} WHERE region='us-west'"
                 };
-
                 //从指定库中查询数据
                 var response = await clientDb.Client.QueryAsync(queries, dbName);
                 //得到Serie集合对象（返回执行多个查询的结果）
@@ -63,6 +63,11 @@ namespace InfluxDb.Lib.Service
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                if (clientDb != null)
+                    ((IDisposable)clientDb).Dispose();
             }
         }
 
@@ -105,6 +110,11 @@ namespace InfluxDb.Lib.Service
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                if (clientDb != null)
+                    ((IDisposable)clientDb).Dispose();
             }
         }
     }
