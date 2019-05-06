@@ -14,6 +14,7 @@
             
             </summary>
             <param name="influxDBTest"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:InfluxDbTestApi.Controllers.InfluxController.GetInflux(System.String,System.String)">
             <summary>
@@ -27,8 +28,25 @@
             <summary>
             添加表信息
             </summary>
-            <param name="dbName"></param>
-            <param name="dbTable"></param>
+            <param name="addModel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InfluxDbTestApi.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:InfluxDbTestApi.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:InfluxDbTestApi.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
             <returns></returns>
         </member>
         <member name="T:InfluxDbTestApi.Startup">

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InfluxDb.Lib.Help;
 using InfluxDb.Lib.IService;
 using InfluxDb.Lib.Models;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace InfluxDbTestApi.Controllers
 {
@@ -17,6 +19,7 @@ namespace InfluxDbTestApi.Controllers
     public class InfluxController : ControllerBase
     {
         private readonly IInfluxDBTestService influxDBTest;
+        private readonly ILogger debugInfo;
         /// <summary>
         /// 
         /// </summary>
@@ -24,6 +27,7 @@ namespace InfluxDbTestApi.Controllers
         public InfluxController(IInfluxDBTestService influxDBTest)
         {
             this.influxDBTest = influxDBTest;
+            debugInfo = LogManager.GetLogger("debugInfo");
         }
 
         /// <summary>
@@ -43,17 +47,25 @@ namespace InfluxDbTestApi.Controllers
         /// <summary>
         /// 添加表信息
         /// </summary>
-        /// <param name="dbName"></param>
-        /// <param name="dbTable"></param>
+        /// <param name="addModel"></param>
         /// <returns></returns>
         [Route("AddInflux"), HttpPost]
-        //[Authorize]
         public async Task<IActionResult> AddInflux([FromBody] AddModel addModel)
         {
-            if (addModel == null)
-                throw new Exception("传入数据是空！");
-            var id = await influxDBTest.AddInfluxDb(addModel);
-            return Ok(id);
+            try
+            {
+                debugInfo.Debug(addModel.ToJsonString());
+                if (addModel == null)
+                    throw new Exception("传入数据是空！");
+                var id = await influxDBTest.AddInfluxDb(addModel);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                debugInfo.Debug(ex.Message);
+                throw ex;
+            }
+            
         }
     }
 }

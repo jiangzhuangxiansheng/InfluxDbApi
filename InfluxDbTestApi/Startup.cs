@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -95,18 +98,7 @@ namespace InfluxDbTestApi
                     });
                 });
             #endregion
-
-            #region AutoMapper  
-            //暂时不需要返回前端
-            //var mapperConfig = new AutoMapper.MapperConfiguration(cfg =>
-            //{
-            //    cfg.AddProfile(new AutoMapperProfile());
-            //});
-
-            //var mapper = mapperConfig.CreateMapper();
-            //services.AddSingleton(mapper);
-            #endregion
-
+            
             #region InfluxDb
             services.Configure<InfluxDbModel>(Configuration.GetSection("InfluxDbModelStrings"));
             #endregion InfluxDb
@@ -141,6 +133,7 @@ namespace InfluxDbTestApi
             }
             app.UseHttpsRedirection();
             app.UseCors("all");
+
             app.UseMvc();
 
             #region swagger
