@@ -22,9 +22,9 @@ namespace InfluxDb.Lib.Service
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<IList<IList<object>>> GetInfluxDb(string dbName, string dbTable)
+        public async Task<IList<IList<object>>> GetInfluxDb(string dbName, string dbTable,string sql)
         {
-            var rest = await operationHelp.GetData(dbName, dbTable);
+            var rest = await operationHelp.GetData(dbName, dbTable, sql);
             return rest;
         }
         /// <summary>

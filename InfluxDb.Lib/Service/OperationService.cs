@@ -18,19 +18,17 @@ namespace InfluxDb.Lib.Service
     /// </summary>
     public class OperationService : IOperationService
     {
-       
         //Influx配置
-        private readonly InfluxDbModel influx;
+        //private readonly InfluxDbModel influx;
         private readonly InfluxDbClient dbClient;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="influxDb"></param>
-        public OperationService(IOptions<InfluxDbModel> influxDb, InfluxDbClient dbClient)
+        public OperationService(/*IOptions<InfluxDbModel> influxDb,*/ InfluxDbClient dbClient)
         {
-            influx = influxDb.Value;
+            //influx = influxDb.Value;
             this.dbClient = dbClient;
-            //clientDb = new InfluxDbClient(influx.InfluxUrl, influx.InfluxUser, influx.InfluxPwd, InfluxDbVersion.Latest);
         }
 
         /// <summary>
@@ -38,16 +36,17 @@ namespace InfluxDb.Lib.Service
         /// </summary>
         /// <param name="dbName">数据库名称</param>
         /// <param name="dbTable">数据库表名称</param>
-        public async Task<IList<IList<object>>> GetData(string dbName, string dbTable)
+        public async Task<IList<IList<object>>> GetData(string dbName, string dbTable, string sql)
         {
             try
             {
                 if (string.IsNullOrEmpty(dbName) && string.IsNullOrEmpty(dbTable))
                     throw new Exception("Error：数据库名称或者表名称是空！");
+               
                 //传入查询命令，支持多条
                 var queries = new[]
                 {
-                    $"SELECT * FROM {dbTable} WHERE region='us-west'"
+                    !string.IsNullOrEmpty(sql) ? sql : $"SELECT * FROM {dbTable} order by time desc limit 100"
                 };
                 //从指定库中查询数据
                 var response = await dbClient.Client.QueryAsync(queries, dbName);

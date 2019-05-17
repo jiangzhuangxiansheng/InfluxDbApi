@@ -17,7 +17,7 @@ namespace InfluxDb.Lib.IService
         /// <param name="dbName"></param>
         /// <param name="dbTable"></param>
         /// <returns></returns>
-        Task<IList<IList<object>>> GetInfluxDb(string dbName, string dbTable);
+        Task<IList<IList<object>>> GetInfluxDb(string dbName, string dbTable, string sql);
         /// <summary>
         /// 添加数据
         /// </summary>

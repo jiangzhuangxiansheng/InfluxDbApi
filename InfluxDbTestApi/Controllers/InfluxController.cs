@@ -35,12 +35,13 @@ namespace InfluxDbTestApi.Controllers
         /// </summary>
         /// <param name="dbName"></param>
         /// <param name="dbTable"></param>
+        /// <param name="sql">必须用limit语句分页，数据量大</param>
         /// <returns></returns>
         [Route("GetInflux"), HttpGet]
         //[Authorize]
-        public async Task<IActionResult> GetInflux([FromQuery] string dbName, string dbTable)
+        public async Task<IActionResult> GetInflux([FromQuery] string dbName, string dbTable,string sql)
         {
-            var id = await influxDBTest.GetInfluxDb(dbName, dbTable);
+            var id = await influxDBTest.GetInfluxDb(dbName, dbTable,sql);
             return Ok(id);
         }
 

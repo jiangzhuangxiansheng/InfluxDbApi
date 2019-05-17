@@ -15,12 +15,13 @@
             </summary>
             <param name="influxDBTest"></param>
         </member>
-        <member name="M:InfluxDbTestApi.Controllers.InfluxController.GetInflux(System.String,System.String)">
+        <member name="M:InfluxDbTestApi.Controllers.InfluxController.GetInflux(System.String,System.String,System.String)">
             <summary>
             获取表参数
             </summary>
             <param name="dbName"></param>
             <param name="dbTable"></param>
+            <param name="sql">必须用limit语句分页，数据量大</param>
             <returns></returns>
         </member>
         <member name="M:InfluxDbTestApi.Controllers.InfluxController.AddInflux(InfluxDb.Lib.Models.AddModel)">
